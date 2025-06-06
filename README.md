@@ -1,6 +1,6 @@
 # Overview
 
-GhostFlow is a device code phishing framework designed to steak Entra ID user tokens using Microsoft's device code authentication flow. Upon successful authentication, users are redirected to download a static decoy document (e.g., pwnded.pdf) and save the access and refresh tokens to a JSON file. These tokens can be used to authenticate to other Microsoft APIs/services. GhostFlow uses the Microsoft Office client ID and currently uses a Microsoft-themed login page but can be easily extended or replaced. When the device code is clicked, the device code is copied to the clipboard and the page redirects to the Microsoft device code auth page.
+GhostFlow is a device code phishing framework designed to steal Entra ID user tokens using Microsoft's device code authentication flow. Upon successful authentication, users are redirected to download a static decoy document (e.g., pwned.pdf) and save the access and refresh tokens to a JSON file. These tokens can be used to authenticate to other Microsoft APIs/services. GhostFlow uses the Microsoft Office client ID and currently uses a Microsoft-themed login page but can be easily extended or replaced. When the device code is clicked, the device code is copied to the clipboard and the page redirects to the Microsoft device code auth page.
 
 ![alt text](https://github.com/D4rthMaulCop/GhostFlow/blob/main/img/poc.png)
 
