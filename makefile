@@ -1,5 +1,5 @@
 # Output binary name
-BINARY_NAME=GhostToken
+BINARY_NAME=GhostFlow
 BUILD_DIR=_bin
 TARGET_OS=linux
 TARGET_ARCH=amd64
