@@ -1,0 +1,46 @@
+# macOS files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# macOS resource forks
+._*
+
+# Visual Studio Code files
+.vscode/
+*.code-workspace
+
+# Go build artifacts
+*.exe
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+
+# Go vendor directory
+/vendor/
+
+# Binary output
+bin/
+*.o
+
+# Logs and temporary files
+*.log
+*.tmp
+*.swp
+*.bak
+*.old
+
+# Tokens directory (if dynamically generated)
+tokens/
+
+# Certificates (if dynamically generated)
+cert.pem
+key.pem
+
+# Ignore certmagic storage
+.certs/
+
+# Ignore any other temporary files
+*.~*
