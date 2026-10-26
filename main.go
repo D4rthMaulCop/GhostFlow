@@ -241,7 +241,7 @@ func main() {
 			http.NotFound(w, r)
 			return
 		}
-		http.StripPrefix("/static/", http.FileServer(http.Dir("static"))).ServeHTTP(w, r)
+		http.StripPrefix("/static/", http.FileServer(http.Dir("templates/static"))).ServeHTTP(w, r)
 	})
 
 	if debug {
