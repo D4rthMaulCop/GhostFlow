@@ -34,6 +34,8 @@ project/
 ├── templates/
 │   ├── index.html
 │   └── unauthorized.html
+│   └── static/
+│      └── logo.jpeg
 ├── pwned.pdf
 ├── cert.pem
 ├── key.pem
